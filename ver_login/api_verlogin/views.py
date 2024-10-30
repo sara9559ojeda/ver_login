@@ -36,13 +36,7 @@ class loginApiView(APIView):
     def delete(self, request, pkid): #eliminar/ el pkid puede ser cualquier otra variable ej: x
         cuentaeliminada= login.objects.filter(id=pkid).delete()
         return Response(cuentaeliminada, status=status.HTTP_204_NO_CONTENT)
-
-
-
-      
-class Home(APIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+class validateApiView(APIView):
     def post(self, request, *args, **kwargs):
         data={
             'user':request.data.get('user'),
@@ -51,3 +45,11 @@ class Home(APIView):
         if login.objects.filter(user=data['user'], password=data['password']).exists():
             return Response(True, status=status.HTTP_200_OK)
         return Response(False, status=status.HTTP_400_BAD_REQUEST)
+      
+class Home(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        content = {'message': 'Hello, World!'}
+        return Response(content)
