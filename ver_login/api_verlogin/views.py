@@ -5,8 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status, permissions
 from .models import login 
 from .serializer import login_serializer # serializer clases encargadas de 
-from rest_framework.permissions import IsAuthenticated
-from rest_framework_simplejwt.authentication import JWTAuthentication
+
 # Create your views here.
 
 class loginApiView(APIView):
@@ -43,13 +42,5 @@ class validateApiView(APIView):
             'password':request.data.get('password'),
         }
         if login.objects.filter(user=data['user'], password=data['password']).exists():
-            return Response(True, status=status.HTTP_200_OK)
+            return Response(True, status=status.HTTP_200_OK) #ver perfil
         return Response(False, status=status.HTTP_400_BAD_REQUEST)
-      
-class Home(APIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request):
-        content = {'message': 'Hello, World!'}
-        return Response(content)

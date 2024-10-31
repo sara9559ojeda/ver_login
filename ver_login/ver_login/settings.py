@@ -40,36 +40,24 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api_verlogin',
     'rest_framework',
-    'rest_framework_simplejwt',
+    'corsheaders',
+    
 ]
-# REST_FRAMEWORK jwt
-REST_FRAMEWORK = { 
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
-}
-
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
-    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
-    'SLIDING_TOKEN_LIFETIME': timedelta(days=30),
-    'SLIDING_TOKEN_REFRESH_LIFETIME_LATE_USER': timedelta(days=1),
-    'SLIDING_TOKEN_LIFETIME_LATE_USER': timedelta(days=30),
-}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware', #esto
+    'corsheaders.middleware.CorsMiddleware', #esto
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
+CORS_ALLOW_ALL_ORIGINS = True
 ROOT_URLCONF = 'ver_login.urls'
 
 TEMPLATES = [
